@@ -46,13 +46,12 @@ module.exports.updateProfile = (req, res) => {
     .catch((err) => {
       if (err.message === 'NotValidId') {
         res.status(404).send({ message: 'Пользователь с таким id не найден' });
-        return;
-      }
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: err.message });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
-      }
+      } else
+        if (err.name === 'ValidationError') {
+          res.status(400).send({ message: err.message });
+        } else {
+          res.status(500).send({ message: 'На сервере произошла ошибка' });
+        }
     });
 };
 
@@ -63,12 +62,11 @@ module.exports.updateAvatar = (req, res) => {
     .catch((err) => {
       if (err.message === 'NotValidId') {
         res.status(404).send({ message: 'Пользователь с таким id не найден' });
-        return;
-      }
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: err.message });
-      } else {
-        res.status(500).send({ message: 'На сервере произошла ошибка' });
-      }
+      } else
+        if (err.name === 'ValidationError') {
+          res.status(400).send({ message: err.message });
+        } else {
+          res.status(500).send({ message: 'На сервере произошла ошибка' });
+        }
     });
 };
