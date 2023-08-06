@@ -70,7 +70,7 @@ module.exports.dislikeCard = (req, res) => {
     )
       .populate('owner')
       .populate('likes')
-      .then((card) => {
+      .then(card) => {
         if (!card) {
           return res.status(404).send({ message: 'Карточка с таким id не найдена' });
         }
