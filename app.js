@@ -25,7 +25,9 @@ app.use((req, res, next) => {
 
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
-// eslint-disable-next-line no-undef
-app.use('*', (req, res) => res.status(NOT_FOUND_ERROR).send({ message: '404 ошибка' }));
+
+app.use('*', (req, res) => {
+  res.status(404).send({ message: 'Страница не найдена' });
+});
 
 app.listen(PORT);
