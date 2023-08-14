@@ -65,7 +65,7 @@ module.exports.likeCard = (req, res, next) => {
       })
       .catch((err) => {
         if (err.message === 'NotValidId') {
-          //res.status(404).send({ message: 'Карточка с таким id не найдена' });
+          // res.status(404).send({ message: 'Карточка с таким id не найдена' });
           next(new NotFoundError('Карточка с таким id не найдена'));
         } else {
           // res.status(500).send({ message: '«На сервере произошла ошибка' });
