@@ -22,8 +22,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/users', require('./routes/users'));
-app.use('/cards', require('./routes/cards'));
+// app.use('/users', require('./routes/users'));
+// app.use('/cards', require('./routes/cards'));
+// app.use('/signup', require('./routes/signup'));
+// app.use('/signin', require('./routes/signin'));
+app.use('/', require('./routes/index'));
 
 app.use('*', (req, res) => {
   res.status(404).send({ message: 'Страница не найдена' });
