@@ -14,14 +14,12 @@ const {
 router.get('/', getUsers);
 router.get('/me', getMe);
 
-// router.get('/:userId', getUserId);
 router.get('/:userId', celebrate({
   params: Joi.object().keys({
     userId: Joi.string().required().length(24).hex(),
   }),
 }), getUserId);
 
-// router.patch('/me', updateProfile);
 router.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -29,7 +27,6 @@ router.patch('/me', celebrate({
   }),
 }), updateProfile);
 
-// router.patch('/me/avatar', updateAvatar);
 router.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().pattern(/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/),

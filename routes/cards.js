@@ -11,7 +11,6 @@ const {
 // PUT /cards/:cardId/likes — поставить лайк карточке
 // DELETE /cards/:cardId/likes — убрать лайк с карточки
 
-// router.post('/', createCard);
 router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -21,21 +20,18 @@ router.post('/', celebrate({
 
 router.get('/', getCards);
 
-// router.delete('/:cardId', deleteCard);
 router.delete('/:cardId', celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),
   }),
 }), deleteCard);
 
-// router.put('/:cardId/likes', likeCard);
 router.put('/:cardId/likes', celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),
   }),
 }), likeCard);
 
-// router.delete('/:cardId/likes', dislikeCard);
 router.delete('/:cardId/likes', celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().required().length(24).hex(),

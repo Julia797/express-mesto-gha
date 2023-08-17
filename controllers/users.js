@@ -13,8 +13,6 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash, // записываем хеш в базу
     })
-
-    // User.create({ name, about, avatar })
       .then((user) => res.status(201).send({
         name: user.name, about: user.about, avatar: user.avatar, email: user.email, _id: user._id,
       }))
@@ -22,10 +20,8 @@ module.exports.createUser = (req, res, next) => {
         if (err.code === 11000) {
           next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
         } else if (err.name === 'ValidationError') {
-        // res.status(400).send({ message: err.message });
           next(new BadRequestError(err.message));
         } else {
-        // res.status(500).send({ message: 'На сервере произошла ошибка' });
           next(err);
         }
       }));
@@ -34,7 +30,6 @@ module.exports.createUser = (req, res, next) => {
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.status(200).send(users))
-    // .catch(() => res.status(500).send({ message: '«На сервере произошла ошибка' }));
     .catch((err) => next(err));
 };
 
@@ -47,15 +42,12 @@ module.exports.getUserId = (req, res, next) => {
       })
       .catch((err) => {
         if (err.message === 'NotValidId') {
-          // res.status(404).send({ message: 'Пользователь с таким id не найден' });
           next(new NotFoundError('Пользователь с таким id не найден'));
         } else {
-          // res.status(500).send({ message: '«На сервере произошла ошибка' });
           next(err);
         }
       });
   } else {
-    // res.status(400).send({ message: 'Не корректный Id' });
     next(new BadRequestError('Не корректный Id'));
   }
 };
@@ -67,13 +59,10 @@ module.exports.updateProfile = (req, res, next) => {
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'NotValidId') {
-        // res.status(404).send({ message: 'Пользователь с таким id не найден' });
         next(new NotFoundError('Пользователь с таким id не найден'));
       } else if (err.name === 'ValidationError') {
-        // res.status(400).send({ message: err.message });
         next(new BadRequestError(err.message));
       } else {
-        // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err);
       }
     });
@@ -85,13 +74,10 @@ module.exports.updateAvatar = (req, res, next) => {
     .then((user) => res.status(200).send(user))
     .catch((err) => {
       if (err.message === 'NotValidId') {
-        // res.status(404).send({ message: 'Пользователь с таким id не найден' });
         next(new NotFoundError('Пользователь с таким id не найден'));
       } else if (err.name === 'ValidationError') {
-        // res.status(400).send({ message: err.message });
         next(new BadRequestError(err.message));
       } else {
-        // res.status(500).send({ message: 'На сервере произошла ошибка' });
         next(err);
       }
     });
