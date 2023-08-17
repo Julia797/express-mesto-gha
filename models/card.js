@@ -12,8 +12,8 @@ const cardSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Необходимо заполнить поле "link"'],
       validate: {
-        validator(v) {
-          return /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)/.test(v);
+        validator(URL) {
+          return /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/.test(URL);
         },
         message: 'Введите URL',
       },

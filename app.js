@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
@@ -14,14 +15,6 @@ mongoose.connect(DB_URL, {
   useUnifiedTopology: true,
 });
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '64ccf12d9f1979ec64de1536', // вставляем сюда _id созданного пользователя.
-  };
-
-  next();
-});
-
 // app.use('/users', require('./routes/users'));
 // app.use('/cards', require('./routes/cards'));
 // app.use('/signup', require('./routes/signup'));
@@ -31,6 +24,8 @@ app.use('/', require('./routes/index'));
 app.use('*', (req, res) => {
   res.status(404).send({ message: 'Страница не найдена' });
 });
+
+app.use(errors());
 
 app.use((err, req, res, next) => {
   // если у ошибки нет статуса, выставляем 500

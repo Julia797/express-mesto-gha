@@ -109,3 +109,9 @@ module.exports.login = (req, res, next) => {
       next(err);
     });
 };
+
+module.exports.getMe = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => res.status(200).send(user))
+    .catch(next);
+};
