@@ -4,7 +4,7 @@ const { login } = require('../controllers/users');
 
 router.post('/', celebrate({
   body: Joi.object().keys({
-    password: Joi.string().required().min(5),
+    password: Joi.string().required(),
     email: Joi.string().required().email(),
   }).unknown(true),
 }), login);
